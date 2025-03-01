@@ -1,0 +1,53 @@
+{
+    "version": "2.0.0",
+    "presentation": {
+      "echo": false,
+      "reveal": "always",
+      "focus": false,
+      "panel": "new",
+      "showReuseMessage": false,
+      "clear": false
+    },
+    "tasks": [
+      {
+        "label": "Vibrant",
+        "dependsOn": [
+          "LOCAL"
+        ],
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        }
+      },
+      {
+        "label": "LOCAL",
+        "type": "shell",
+        "command": "source ${workspaceFolder}/.vscode/LOCAL.sh",
+        "isBackground": true,
+        "problemMatcher": [],
+        "presentation": {
+          "group": "Vibrant"
+        }
+      },
+      {
+        "label": "DEV",
+        "type": "shell",
+        "command": "source ${workspaceFolder}/.vscode/DEV.sh",
+        "isBackground": true,
+        "problemMatcher": [],
+        "presentation": {
+          "group": "Vibrant"
+        }
+      },
+      {
+        "label": "PROD",
+        "type": "shell",
+        "command": "source ${workspaceFolder}/.vscode/PROD.sh",
+        "isBackground": true,
+        "problemMatcher": [],
+        "presentation": {
+          "group": "Vibrant"
+        }
+      }
+    ]
+}

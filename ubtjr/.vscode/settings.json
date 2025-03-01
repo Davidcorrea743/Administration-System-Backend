@@ -1,0 +1,40 @@
+{
+  "files.exclude": {
+    // hides Files
+    "**/.git": true,
+    "**/.gitlab-ci*": true,
+    "**/.prettierrc": true,
+    "**/.editorconfig": true,
+    //"**/.env": true,
+    "**/dev.env": true,
+    "**/prod.env": false,
+    // "**/.prod.env": true,
+    "**/.env.example": true,
+    "**/.eslintrc*": true,
+    // type of files
+    "**/*.dia": true,
+    "**/*.doc*": true,
+    "**/*?.env*": false,
+    "**/*.jpg": true,
+    "**/*.jpeg": true,
+    "**/*.od*": true,
+    "**/*.pdf": true,
+    "**/*.xls*": true,
+    // Folders
+    "**/assets*": true,
+    "**/dist*": true,
+    "**/node_modules*": true,
+    // "**/public*": true,
+    "**/test*": true,
+    "**/upload": true,
+    "**/.ci-cd": true,
+    // Files
+    "**/Dockerfile": true,
+    "**/LICENSE*": true,
+    "**/nest-cli*": true,
+    "**/package-lock*": true,
+    "**/README*": true,
+    "**/run.bat": true,
+    "**/tsconfig*": true
+  }
+}
