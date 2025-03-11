@@ -1,6 +1,7 @@
 import {
   ConflictException,
   Injectable,
+  Logger,
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
@@ -16,6 +17,7 @@ import { ApiKeyDto, ChangePasswordDto, CreateUserDto, LoginDto } from 'src/auth/
 
 @Injectable()
 export class AuthService {
+  private readonly logger = new Logger(AuthService.name);
   constructor(
     @InjectRepository(User)
     private readonly userRepo: Repository<User>,
@@ -102,13 +104,22 @@ export class AuthService {
   }
 
   async loginAdmin(query: ApiKeyDto) {
-    if (query.apiKey !== this.configService.get('JWT_MODULE_KEY')) {
-      throw new UnauthorizedException('Token Invalido.');
+    const { apiKey } = query;
+    const jwtKey = this.configService.get<string>('JWT_MODULE_KEY')?.trim();
+
+    if (!jwtKey) {
+      this.logger.error('JWT_MODULE_KEY no está definido en el entorno');
+      throw new UnauthorizedException('Token Inválido.');
+    }
+
+    if (apiKey !== jwtKey) {
+      this.logger.warn(`Token inválido recibido: ${apiKey}`);
+      throw new UnauthorizedException('Token Inválido.');
     }
     const payload = { sub: 1, email: 'admin@ubtjr.com', role: 'admin' };
     return {
       accessToken: this.jwtService.sign(payload),
-      expiresIn: this.configService.get('JWT_EXPIRATION_TIME'),
+      expiresIn: this.configService.get('JWT_EXPIRATION_TIME')?.trim(),
       exp: new Date(
         new Date().getTime() +
           parseInt(this.configService.get('JWT_EXPIRATION_TIME')),
