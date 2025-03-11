@@ -4,33 +4,44 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
+  ManyToOne,
+  JoinColumn,
+  DeleteDateColumn,
 } from 'typeorm';
+import { Proveedor } from './proveedores.entity';
 
 @Entity()
 export class FacturasProveedor {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ nullable: true })
-  tipoRif: string;
-
-  @Column('bigint', { default: 0 })
-  rifProveedor: number;
+  @ManyToOne(() => Proveedor, (proveedor) => proveedor.rif, { nullable: false })
+  @JoinColumn({ name: 'rif' })
+  proveedor: Proveedor;
 
   @Column({ nullable: true })
   nombre: string;
 
-  @Column('bigint', { default: 0 })
+  @Column('bigint', { default: '0' })
   noFactura: number;
 
   @Column({ nullable: true })
   fecha: Date;
+
+  @Column({ nullable: true })
+  fecha_vencimiento: Date;
+
+  @Column('decimal', { default: 0 })
+  sub_total: number;
 
   @Column('decimal', { precision: 20, scale: 2, default: 0 })
   base: number;
 
   @Column('decimal', { precision: 20, scale: 2, default: 0 })
   iva: number;
+
+  @Column('decimal', { precision: 20, scale: 2, default: 16 })
+  porcentajeIva: number;
 
   @Column('decimal', { precision: 20, scale: 2, default: 0 })
   total: number;
@@ -71,9 +82,6 @@ export class FacturasProveedor {
   })
   updatedAt: Date;
 
-  @UpdateDateColumn({
-    type: 'timestamptz',
-    default: () => 'CURRENT_TIMESTAMP',
-  })
+  @DeleteDateColumn({ type: 'timestamptz', nullable: true })
   deletedAt: Date;
 }

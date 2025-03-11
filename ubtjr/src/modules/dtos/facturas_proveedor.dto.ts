@@ -1,83 +1,101 @@
-import { IsString, IsOptional, IsNumber, IsDateString, IsBoolean, IsDecimal, IsNotEmpty } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
+import {
+  IsString,
+  IsOptional,
+  IsNumber,
+  IsDateString,
+  IsBoolean,
+  IsDecimal,
+  IsNotEmpty,
+} from 'class-validator';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CreateFacturasPDto {
-  @ApiProperty({ nullable: true })
-  @IsOptional()
-  @IsString()
-  tipoRif?: string;
-
-  @ApiProperty({ nullable: true })
-  @IsOptional()
+  @ApiProperty({ nullable: false })
+  @IsNotEmpty()
   @IsNumber()
-  rifProveedor?: number;
+  rif: number;
 
-  @ApiProperty({ nullable: true })
+  @ApiPropertyOptional({ nullable: true })
   @IsOptional()
   @IsString()
   nombre?: string;
 
-  @ApiProperty({ nullable: true })
+  @ApiPropertyOptional({ nullable: true })
   @IsOptional()
   @IsNumber()
   noFactura?: number;
 
-  @ApiProperty({ nullable: true })
+  @ApiPropertyOptional({ nullable: true })
   @IsOptional()
   @IsDateString()
   fecha?: Date;
 
-  @ApiProperty({ nullable: true })
+  @ApiPropertyOptional({ nullable: true })
+  @IsOptional()
+  @IsDateString()
+  fecha_vencimiento?: Date;
+
+  @ApiPropertyOptional({ nullable: true })
+  @IsOptional()
+  @IsDecimal()
+  sub_total?: number;
+
+  @ApiPropertyOptional({ nullable: true })
   @IsOptional()
   @IsDecimal()
   base?: number;
 
-  @ApiProperty({ nullable: true })
+  @ApiPropertyOptional({ nullable: true })
   @IsOptional()
   @IsDecimal()
   iva?: number;
 
-  @ApiProperty({ nullable: true })
+  @ApiPropertyOptional({ nullable: true })
+  @IsOptional()
+  @IsDecimal()
+  porcentajeIva?: number;
+
+  @ApiPropertyOptional({ nullable: true })
   @IsOptional()
   @IsDecimal()
   total?: number;
 
-  @ApiProperty({ nullable: true })
+  @ApiPropertyOptional({ nullable: true })
   @IsOptional()
   @IsBoolean()
   retieneIva?: boolean;
 
-  @ApiProperty({ nullable: true })
+  @ApiPropertyOptional({ nullable: true })
   @IsOptional()
   @IsDecimal()
   retencionIva?: number;
 
-  @ApiProperty({ nullable: true })
+  @ApiPropertyOptional({ nullable: true })
   @IsOptional()
   @IsBoolean()
   retieneIslr?: boolean;
 
-  @ApiProperty({ nullable: true })
+  @ApiPropertyOptional({ nullable: true })
   @IsOptional()
   @IsDecimal()
   retencionIslr?: number;
 
-  @ApiProperty({ nullable: true })
+  @ApiPropertyOptional({ nullable: true })
   @IsOptional()
   @IsBoolean()
   retiene1xMil?: boolean;
 
-  @ApiProperty({ nullable: true })
+  @ApiPropertyOptional({ nullable: true })
   @IsOptional()
   @IsDecimal()
   retencion1xMil?: number;
 
-  @ApiProperty({ nullable: true })
+  @ApiPropertyOptional({ nullable: true })
   @IsOptional()
   @IsBoolean()
   retiene115?: boolean;
 
-  @ApiProperty({ nullable: true })
+  @ApiPropertyOptional({ nullable: true })
   @IsOptional()
   @IsDecimal()
   retencion115?: number;

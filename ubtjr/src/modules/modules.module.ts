@@ -5,26 +5,26 @@ import { Condominio } from 'src/entities/condominio.entity';
 import { FacturasProveedor } from 'src/entities/facturas_proveedor.entity';
 import { Impuestos } from 'src/entities/impuestos.entity';
 import { Nomina } from 'src/entities/nomina.entity';
+import { Proveedor } from 'src/entities/proveedores.entity';
 import { Seniat } from 'src/entities/seniat.entity';
-import { ServicioElecAseo } from 'src/entities/servicio_elec_aseo.entity';
-import { ServicioTelef } from 'src/entities/servicio_telef.entity';
+import { ServicioBasico } from 'src/entities/servicios_basicos';
 import { Viaticos } from 'src/entities/viaticos.entity';
 
 import { CondominioController } from 'src/modules/controllers/condominio.controller';
 import { FacturasPController } from 'src/modules/controllers/facturas_proveedor.controller';
 import { ImpuestosController } from 'src/modules/controllers/impuestos.controller';
 import { NominaController } from 'src/modules/controllers/nomina.controller';
+import { ProveedorController } from 'src/modules/controllers/proveedores.controller';
 import { SeniatController } from 'src/modules/controllers/seniat.controller';
-import { ServicioTelefController } from 'src/modules/controllers/servicio_telef.controller';
-import { ServicioElecAseoController } from 'src/modules/controllers/servicio_elec_aseo.controller';
+import { ServicioBasicoController } from 'src/modules/controllers/servicios_basicos.controller';
 import { ViaticosController } from 'src/modules/controllers/viaticos.controller';
 import { CondominioService } from 'src/modules/services/condominio.service';
 import { FacturasPService } from 'src/modules/services/facturas_proveedor.service';
 import { ImpuestosService } from 'src/modules/services/impuestos.service';
 import { NominaService } from 'src/modules/services/nomina.service';
+import { ProveedorService } from 'src/modules/services/proveedores.service';
 import { SeniatService } from 'src/modules/services/seniat.service';
-import { ServicioElecAseoService } from 'src/modules/services/servicio_elec_aseo.service';
-import { ServicioTelefService } from 'src/modules/services/servicio_telef.service';
+import { ServicioBasicoService } from 'src/modules/services/servicios_basicos.service';
 import { ViaticosService } from 'src/modules/services/viaticos.service';
 
 @Module({
@@ -34,9 +34,9 @@ import { ViaticosService } from 'src/modules/services/viaticos.service';
       FacturasProveedor,
       Impuestos,
       Nomina,
+      Proveedor,
       Seniat,
-      ServicioElecAseo,
-      ServicioTelef,
+      ServicioBasico,
       Viaticos,
     ]),
   ],
@@ -45,9 +45,9 @@ import { ViaticosService } from 'src/modules/services/viaticos.service';
     FacturasPController,
     ImpuestosController,
     NominaController,
+    ProveedorController,
     SeniatController,
-    ServicioElecAseoController,
-    ServicioTelefController,
+    ServicioBasicoController,
     ViaticosController,
   ],
   providers: [
@@ -55,9 +55,9 @@ import { ViaticosService } from 'src/modules/services/viaticos.service';
     FacturasPService,
     ImpuestosService,
     NominaService,
+    ProveedorService,
     SeniatService,
-    ServicioElecAseoService,
-    ServicioTelefService,
+    ServicioBasicoService,
     ViaticosService,
   ],
 })

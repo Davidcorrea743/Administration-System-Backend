@@ -2,6 +2,7 @@ import { Exclude } from 'class-transformer';
 import {
   Column,
   CreateDateColumn,
+  DeleteDateColumn,
   Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -47,7 +48,7 @@ export class User {
     enum: UserStatusEnum,
     default: UserStatusEnum.active,
   })
-  status?: UserStatusEnum;
+  status: UserStatusEnum;
 
   @CreateDateColumn({
     type: 'timestamptz',
@@ -61,8 +62,6 @@ export class User {
   })
   updatedAt: Date;
 
-  @UpdateDateColumn({
-    type: 'timestamptz',
-  })
+  @DeleteDateColumn({ type: 'timestamptz', nullable: true })
   deletedAt: Date;
 }

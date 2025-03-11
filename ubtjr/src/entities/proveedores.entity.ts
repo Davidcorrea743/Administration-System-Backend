@@ -3,31 +3,32 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  PrimaryGeneratedColumn,
+  PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
-export enum SeniatTipoEnum {
-  IVA = 'IVA',
-  ISLR = 'ISLR',
-}
-
 @Entity()
-export class Seniat {
-  @PrimaryGeneratedColumn()
-  id: number;
+export class Proveedor {
+  @PrimaryColumn('bigint')
+  rif: number;
+
+  @Column({ nullable: false })
+  fechaVencimientoRif: Date;
+
+  @Column({ nullable: false })
+  razonSocial: string;
+
+  @Column({ default: 'J' })
+  tipoRif: string;
 
   @Column({ nullable: true })
-  fecha?: Date;
+  noOficina: string;
 
   @Column({ nullable: true })
-  periodoPagar?: string;
+  direccion: string;
 
-  @Column('decimal', { precision: 20, scale: 2, default: 0 })
-  montoPagar: number;
-
-  @Column({ nullable: false, type: 'enum', enum: SeniatTipoEnum })
-  tipo: SeniatTipoEnum;
+  @Column('decimal', { default: 0 })
+  porcentaje_retencion: number;
 
   @CreateDateColumn({
     type: 'timestamptz',

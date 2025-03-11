@@ -1,28 +1,35 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsDecimal, IsOptional, IsDateString, IsEnum, IsString, IsNotEmpty, IsNumber } from 'class-validator';
 
 import { SeniatTipoEnum } from 'src/entities/seniat.entity';
 
 export class CreateSeniatDto {
-  @ApiProperty({ nullable: true })
+  @ApiPropertyOptional({ nullable: true })
   @IsOptional()
   @IsDateString()
   fecha?: Date;
 
-  @ApiProperty({ nullable: true })
+  @ApiPropertyOptional({ nullable: true })
   @IsOptional()
   @IsString()
   periodoPagar?: string;
 
-  @ApiProperty({ nullable: true })
+  @ApiPropertyOptional({ nullable: true })
   @IsOptional()
   @IsDecimal()
   montoPagar?: number;
 
-  @ApiProperty({ nullable: true, enum: SeniatTipoEnum })
-  @IsOptional()
+  @ApiProperty({
+    nullable: false,
+    enum: SeniatTipoEnum,
+    enumName: 'SeniatTipoEnum',
+    description:
+      'Seniat Tipos. Opciones disponibles: ' +
+      `${Object.values(SeniatTipoEnum).join(', ')}`,
+  })
+  @IsNotEmpty()
   @IsEnum(SeniatTipoEnum)
-  tipo?: SeniatTipoEnum.IVA;
+  tipo: SeniatTipoEnum;
 }
 
 export class UpdateSeniatDto extends CreateSeniatDto {

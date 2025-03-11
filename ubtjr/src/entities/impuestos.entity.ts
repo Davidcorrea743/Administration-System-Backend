@@ -1,6 +1,7 @@
 import {
   Column,
   CreateDateColumn,
+  DeleteDateColumn,
   Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -9,6 +10,8 @@ import {
 export enum ImpuestosTipoEnum {
   UNOMIL = '1XMIL',
   UNOQUINCE = '1,15%',
+  IVA = 'IVA',
+  ISLR = 'ISLR',
 }
 
 @Entity()
@@ -26,7 +29,7 @@ export class Impuestos {
   montoPagar: number;
 
   @Column({ nullable: false, type: 'enum', enum: ImpuestosTipoEnum })
-  tipo?: ImpuestosTipoEnum.UNOMIL;
+  tipo: ImpuestosTipoEnum;
 
   @CreateDateColumn({
     type: 'timestamptz',
@@ -40,9 +43,6 @@ export class Impuestos {
   })
   updatedAt: Date;
 
-  @UpdateDateColumn({
-    type: 'timestamptz',
-    default: () => 'CURRENT_TIMESTAMP',
-  })
+  @DeleteDateColumn({ type: 'timestamptz', nullable: true })
   deletedAt: Date;
 }

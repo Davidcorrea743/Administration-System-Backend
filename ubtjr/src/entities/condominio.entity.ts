@@ -1,10 +1,26 @@
 import {
   Column,
   CreateDateColumn,
+  DeleteDateColumn,
   Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+
+export enum MesesEnum {
+  ENERO = 'ENE',
+  FEBRERO = 'FEB',
+  MARZO = 'MAR',
+  ABRIL = 'ABR',
+  MAYO = 'MAY',
+  JUNIO = 'JUN',
+  JULIO = 'JUL',
+  AGOSTO = 'AGO',
+  SEPTIEMBRE = 'SEP',
+  OCTUBRE = 'OCT',
+  NOVIEMBRE = 'NOV',
+  DICIEMBRE = 'DIC',
+}
 
 @Entity()
 export class Condominio {
@@ -14,8 +30,8 @@ export class Condominio {
   @Column({ nullable: true })
   fecha: Date;
 
-  @Column({ nullable: true })
-  mesPagar: string;
+  @Column({ nullable: false, type: 'enum', enum: MesesEnum })
+  mesPagar: MesesEnum;
 
   @Column({ nullable: true })
   nombre: string;
@@ -41,9 +57,6 @@ export class Condominio {
   })
   updatedAt: Date;
 
-  @UpdateDateColumn({
-    type: 'timestamptz',
-    default: () => 'CURRENT_TIMESTAMP',
-  })
+  @DeleteDateColumn({ type: 'timestamptz', nullable: true })
   deletedAt: Date;
 }

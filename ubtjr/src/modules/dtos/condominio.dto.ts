@@ -1,33 +1,50 @@
-import { IsString, IsOptional, IsNumber, IsDecimal, IsDateString, IsNotEmpty } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
+import {
+  IsString,
+  IsOptional,
+  IsNumber,
+  IsDecimal,
+  IsDateString,
+  IsNotEmpty,
+  IsEnum,
+} from 'class-validator';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+
+import { MesesEnum } from 'src/entities/condominio.entity';
 
 export class CreateCondominioDto {
-  @ApiProperty({ nullable: true })
+  @ApiPropertyOptional({ nullable: true })
   @IsOptional()
   @IsDateString()
   fecha?: Date;
 
-  @ApiProperty({ nullable: true })
-  @IsOptional()
-  @IsString()
-  mesPagar?: string;
+  @ApiProperty({
+    nullable: false,
+    enum: MesesEnum,
+    enumName: 'MesesEnum',
+    description:
+      'Mes a pagar. Opciones disponibles: ' +
+      `${Object.values(MesesEnum).join(', ')}`,
+  })
+  @IsNotEmpty()
+  @IsEnum(MesesEnum)
+  mesPagar: MesesEnum;
 
-  @ApiProperty({ nullable: true })
+  @ApiPropertyOptional({ nullable: true })
   @IsOptional()
   @IsString()
   nombre?: string;
 
-  @ApiProperty({ nullable: true })
+  @ApiPropertyOptional({ nullable: true })
   @IsOptional()
   @IsNumber()
   rifCondominio?: number;
 
-  @ApiProperty({ nullable: true })
+  @ApiPropertyOptional({ nullable: true })
   @IsOptional()
   @IsString()
   noOficina?: string;
 
-  @ApiProperty({ nullable: true })
+  @ApiPropertyOptional({ nullable: true })
   @IsOptional()
   @IsDecimal()
   montoPagar?: number;

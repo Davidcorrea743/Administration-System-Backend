@@ -6,29 +6,37 @@ import {
   IsNotEmpty,
   IsEnum,
 } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 import { ImpuestosTipoEnum } from 'src/entities/impuestos.entity';
 
 export class CreateImpuestosDto {
-  @ApiProperty({ nullable: true })
+  @ApiPropertyOptional({ nullable: true })
   @IsOptional()
   @IsDateString()
   fecha?: Date;
 
-  @ApiProperty({ nullable: true })
+  @ApiPropertyOptional({ nullable: true })
   @IsOptional()
   @IsNumber()
   noFactura?: number;
 
-  @ApiProperty({ nullable: true })
+  @ApiPropertyOptional({ nullable: true })
   @IsOptional()
   @IsDecimal()
   montoPagar?: number;
 
-  @ApiProperty({ nullable: true, enum: ImpuestosTipoEnum })
+  @ApiProperty({
+    nullable: false,
+    enum: ImpuestosTipoEnum,
+    enumName: 'ImpuestosTipoEnum',
+    description:
+      'Tipo de Impuestos. Opciones disponibles: ' +
+      `${Object.values(ImpuestosTipoEnum).join(', ')}`,
+  })
+  @IsNotEmpty()
   @IsEnum(ImpuestosTipoEnum)
-  tipo?: ImpuestosTipoEnum.UNOMIL;
+  tipo: ImpuestosTipoEnum.IVA;
 }
 
 export class UpdateImpuestosDto extends CreateImpuestosDto {

@@ -12,12 +12,12 @@ async function bootstrap() {
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
 
   const internalOptions = new DocumentBuilder()
-    .setTitle('Backend Sistema Entrega Project')
-    .setDescription('')
-    .setVersion('2.0')
-    .setContact('Gabriel Chaparro', '', 'gabrielchaparro.asesor@gmail.com')
-    .addBearerAuth()
-    .build();
+  .setTitle('Backend Sistema Entrega Project')
+  .setDescription('')
+  .setVersion('2.0')
+  .setContact('Gabriel Chaparro', '', 'gabrielchaparro.asesor@gmail.com')
+  .addBearerAuth()
+  .build();
 
   const document = SwaggerModule.createDocument(app, internalOptions);
 
@@ -28,8 +28,8 @@ async function bootstrap() {
   };
   SwaggerModule.setup('api/docs', app, document, options);
   const configService = app.get(ConfigService);
-  app.enableCors();
 
+  app.enableCors();
   await app.listen(configService.get('PORT'));
 }
 bootstrap();

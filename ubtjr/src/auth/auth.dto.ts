@@ -42,15 +42,25 @@ export class CreateUserDto {
   @IsString()
   password: string;
 
-  @ApiProperty({ description: 'Rol del usuario', enum: RoleStatusEnum })
+  @ApiProperty({
+    nullable: false,
+    enum: RoleStatusEnum,
+    enumName: 'RoleStatusEnum',
+    description:
+      'Rol del usuario. Opciones disponibles: ' +
+      `${Object.values(RoleStatusEnum).join(', ')}`,
+  })
   @IsEnum(RoleStatusEnum)
   @IsNotEmpty()
   role: RoleStatusEnum;
 
   @ApiProperty({
-    description: 'Estado del usuario',
+    nullable: false,
     enum: UserStatusEnum,
-    default: UserStatusEnum.active,
+    enumName: 'UserStatusEnum',
+    description:
+      'Estado del usuario. Opciones disponibles: ' +
+      `${Object.values(UserStatusEnum).join(', ')}`,
   })
   @IsEnum(UserStatusEnum)
   @IsNotEmpty()

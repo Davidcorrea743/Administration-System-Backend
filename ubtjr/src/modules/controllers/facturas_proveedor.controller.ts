@@ -15,8 +15,9 @@ import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { FacturasPService } from 'src/modules/services/facturas_proveedor.service';
 import {
   CreateFacturasPDto,
-  UpdateFacturasPDto,
 } from 'src/modules/dtos/facturas_proveedor.dto';
+
+import { FacturaProveedorDto } from 'src/modules/dtos/proveedores.dto';
 
 @ApiBearerAuth()
 @ApiTags('Facturas')
@@ -43,9 +44,9 @@ export class FacturasPController {
   @Put(':id')
   async updateFactura(
     @Param('id') id: number,
-    @Body() UpdateFacturasPDto: UpdateFacturasPDto,
+    @Body() facturaProveedorDto: FacturaProveedorDto,
   ) {
-    return this.facturasPService.update(id, UpdateFacturasPDto);
+    return this.facturasPService.update(id, facturaProveedorDto);
   }
 
   @Delete(':id')

@@ -6,22 +6,22 @@ import { Impuestos } from 'src/entities/impuestos.entity';
 
 import {
   CreateImpuestosDto,
-  UpdateImpuestosDto
+  UpdateImpuestosDto,
 } from 'src/modules/dtos/impuestos.dto';
 
 @Injectable()
 export class ImpuestosService {
   constructor(
     @InjectRepository(Impuestos)
-    private readonly impuestosRepository: Repository<Impuestos>,
+    private readonly impuestosRepo: Repository<Impuestos>,
   ) {}
 
   async findAll(): Promise<Impuestos[]> {
-    return this.impuestosRepository.find();
+    return this.impuestosRepo.find();
   }
 
   async findOne(id: number): Promise<Impuestos> {
-    const impuesto = await this.impuestosRepository.findOne({ where: { id } });
+    const impuesto = await this.impuestosRepo.findOne({ where: { id } });
     if (!impuesto) {
       throw new NotFoundException(`Impuesto with ID ${id} not found`);
     }
@@ -29,18 +29,24 @@ export class ImpuestosService {
   }
 
   async create(createImpuestosDto: CreateImpuestosDto): Promise<Impuestos> {
-    const impuesto = this.impuestosRepository.create(createImpuestosDto);
-    return this.impuestosRepository.save(impuesto);
+    const impuesto = this.impuestosRepo.create(createImpuestosDto);
+    return this.impuestosRepo.save(impuesto);
   }
 
-  async update(id: number, updateImpuestosDto: UpdateImpuestosDto): Promise<Impuestos> {
+  async update(
+    id: number,
+    updateImpuestosDto: UpdateImpuestosDto,
+  ): Promise<Impuestos> {
     const impuesto = await this.findOne(id);
-    const updatedImpuesto = Object.assign(impuesto, updateImpuestosDto);
-    return this.impuestosRepository.save(updatedImpuesto);
+    const updatedImpuesto = this.impuestosRepo.merge(
+      impuesto,
+      updateImpuestosDto,
+    );
+    return this.impuestosRepo.save(updatedImpuesto);
   }
 
   async delete(id: number): Promise<void> {
     const impuesto = await this.findOne(id);
-    await this.impuestosRepository.softRemove(impuesto);
+    await this.impuestosRepo.softRemove(impuesto);
   }
 }

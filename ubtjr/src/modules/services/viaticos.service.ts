@@ -13,15 +13,15 @@ import {
 export class ViaticosService {
   constructor(
     @InjectRepository(Viaticos)
-    private readonly viaticosRepository: Repository<Viaticos>,
+    private readonly viaticosRepo: Repository<Viaticos>,
   ) {}
 
   async findAll(): Promise<Viaticos[]> {
-    return this.viaticosRepository.find();
+    return this.viaticosRepo.find();
   }
 
   async findOne(id: number): Promise<Viaticos> {
-    const viatico = await this.viaticosRepository.findOne({ where: { id } });
+    const viatico = await this.viaticosRepo.findOne({ where: { id } });
     if (!viatico) {
       throw new NotFoundException(`Viaticos with ID ${id} not found`);
     }
@@ -29,8 +29,8 @@ export class ViaticosService {
   }
 
   async create(createViaticosDto: CreateViaticosDto): Promise<Viaticos> {
-    const viatico = this.viaticosRepository.create(createViaticosDto);
-    return this.viaticosRepository.save(viatico);
+    const viatico = this.viaticosRepo.create(createViaticosDto);
+    return this.viaticosRepo.save(viatico);
   }
 
   async update(
@@ -38,12 +38,12 @@ export class ViaticosService {
     updateViaticosDto: UpdateViaticosDto,
   ): Promise<Viaticos> {
     const viatico = await this.findOne(id);
-    const updatedViatico = Object.assign(viatico, updateViaticosDto);
-    return this.viaticosRepository.save(updatedViatico);
+    const updatedViatico = this.viaticosRepo.merge(viatico, updateViaticosDto);
+    return this.viaticosRepo.save(updatedViatico);
   }
 
   async delete(id: number): Promise<void> {
     const viatico = await this.findOne(id);
-    await this.viaticosRepository.softRemove(viatico);
+    await this.viaticosRepo.softRemove(viatico);
   }
 }

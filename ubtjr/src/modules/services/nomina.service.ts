@@ -10,15 +10,15 @@ import { CreateNominaDto, UpdateNominaDto } from 'src/modules/dtos/nomina.dto';
 export class NominaService {
   constructor(
     @InjectRepository(Nomina)
-    private readonly nominaRepository: Repository<Nomina>,
+    private readonly nominaRepo: Repository<Nomina>,
   ) {}
 
   async findAll(): Promise<Nomina[]> {
-    return this.nominaRepository.find();
+    return this.nominaRepo.find();
   }
 
   async findOne(id: number): Promise<Nomina> {
-    const nomina = await this.nominaRepository.findOne({ where: { id } });
+    const nomina = await this.nominaRepo.findOne({ where: { id } });
     if (!nomina) {
       throw new NotFoundException(`Nomina with ID ${id} not found`);
     }
@@ -26,18 +26,18 @@ export class NominaService {
   }
 
   async create(createNominaDto: CreateNominaDto): Promise<Nomina> {
-    const nomina = this.nominaRepository.create(createNominaDto);
-    return this.nominaRepository.save(nomina);
+    const nomina = this.nominaRepo.create(createNominaDto);
+    return this.nominaRepo.save(nomina);
   }
 
   async update(id: number, updateNominaDto: UpdateNominaDto): Promise<Nomina> {
     const nomina = await this.findOne(id);
-    const updatedNomina = Object.assign(nomina, updateNominaDto);
-    return this.nominaRepository.save(updatedNomina);
+    const updatedNomina = this.nominaRepo.merge(nomina, updateNominaDto);
+    return this.nominaRepo.save(updatedNomina);
   }
 
   async delete(id: number): Promise<void> {
     const nomina = await this.findOne(id);
-    await this.nominaRepository.softRemove(nomina);
+    await this.nominaRepo.softRemove(nomina);
   }
 }

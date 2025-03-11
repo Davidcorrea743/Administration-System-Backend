@@ -1,6 +1,7 @@
 import {
   Column,
   CreateDateColumn,
+  DeleteDateColumn,
   Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -45,10 +46,16 @@ export class Nomina {
   retencionSPF: number;
 
   @Column('decimal', { precision: 20, scale: 2, default: 0 })
+  retencionISLR: number;
+
+  @Column('decimal', { precision: 20, scale: 2, default: 0 })
   retencionFAOV: number;
 
   @Column('decimal', { precision: 20, scale: 2, default: 0 })
   comisionesBancarias: number;
+
+  @Column('decimal', { precision: 30, scale: 2, default: 0 })
+  total_nomina: number;
 
   @CreateDateColumn({
     type: 'timestamptz',
@@ -62,9 +69,6 @@ export class Nomina {
   })
   updatedAt: Date;
 
-  @UpdateDateColumn({
-    type: 'timestamptz',
-    default: () => 'CURRENT_TIMESTAMP',
-  })
+  @DeleteDateColumn({ type: 'timestamptz', nullable: true })
   deletedAt: Date;
 }
