@@ -19,13 +19,11 @@ import {
 } from 'src/modules/dtos/servicios_basicos.dto';
 
 @ApiBearerAuth()
-@ApiTags('Elec & Aseo')
-@Controller('elec_aseo')
+@ApiTags('Servicios Básicos')
+@Controller('serv_basicos')
 @UseGuards(JwtAuthGuard, RolesGuard)
 export class ServicioBasicoController {
-  constructor(
-    private readonly servicioBasicoService: ServicioBasicoService,
-  ) {}
+  constructor(private readonly servicioBasicoService: ServicioBasicoService) {}
 
   @Get()
   async getAllServicioElecAseo() {

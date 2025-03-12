@@ -62,7 +62,7 @@ export class CreateServicioBasicoDto {
   @ApiProperty({ nullable: false })
   @IsString()
   @IsNotEmpty()
-  contrato_control_telefono: string;
+  contratoControlTelefono: string;
 }
 
 export class UpdateServicioBasicoDto extends CreateServicioBasicoDto {
